@@ -1,6 +1,4 @@
 ---
-import { Sparkles, CheckCircle2 } from '@lucide/astro';
-
 export interface Props {
   title?: string;
   items?: string[];
@@ -11,13 +9,10 @@ const { title = 'Key Takeaways & Executive Summary', items = [] } = Astro.props;
 
 <div
   id="key-takeaways"
-  class="my-8 rounded-2xl border border-sky-200/80 bg-sky-50/60 p-6 shadow-xs backdrop-blur-xs transition-colors dark:border-sky-900/50 dark:bg-sky-950/20"
+  class="my-8 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 shadow-2xs transition-colors dark:border-slate-800 dark:bg-slate-900/40"
 >
-  <div class="mb-4 flex items-center gap-2.5">
-    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-600/10 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300">
-      <Sparkles class="h-4 w-4" />
-    </div>
-    <h3 class="text-base font-bold tracking-tight text-slate-900 dark:text-slate-100">
+  <div class="mb-4">
+    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
       {title}
     </h3>
   </div>
@@ -26,7 +21,7 @@ const { title = 'Key Takeaways & Executive Summary', items = [] } = Astro.props;
     <ul class="space-y-2.5 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
       {items.map((item) => (
         <li class="flex items-start gap-2.5">
-          <CheckCircle2 class="mt-0.5 h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400" />
+          <span class="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400 dark:bg-slate-500"></span>
           <span>{item}</span>
         </li>
       ))}
