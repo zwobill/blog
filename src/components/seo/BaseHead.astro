@@ -92,3 +92,12 @@ const fullCanonicalUrl = canonicalUrl.startsWith('http') ? canonicalUrl : `${sit
     }
   })();
 </script>
+
+{/* Cloudflare Web Analytics Beacon (Optional manual token, or automatically injected by Cloudflare Pages) */}
+{import.meta.env.PUBLIC_CF_BEACON_TOKEN && (
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={`{"token": "${import.meta.env.PUBLIC_CF_BEACON_TOKEN}"}`}
+  ></script>
+)}
