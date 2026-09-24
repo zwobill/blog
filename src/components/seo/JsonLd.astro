@@ -1,0 +1,167 @@
+---
+import { SITE } from '@/config/site';
+
+export interface Props {
+  type?: 'website' | 'article' | 'profile';
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  datePublished?: Date;
+  dateModified?: Date;
+  tags?: string[];
+  category?: string;
+  wordCount?: number;
+  faq?: Array<{ question: string; answer: string }>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const {
+  type = 'website',
+  title = SITE.title,
+  description = SITE.description,
+  url = Astro.url.href,
+  image = SITE.defaultOgImage,
+  datePublished,
+  dateModified,
+  tags = [],
+  category = 'Engineering',
+  wordCount,
+  faq = [],
+  breadcrumbs = [],
+} = Astro.props;
+
+const siteUrl = SITE.url;
+const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`;
+const fullUrl = url.startsWith('http') ? url : `${siteUrl}${url}`;
+
+// Person Schema (E-E-A-T Authority Entity)
+const authorEntity = {
+  '@type': 'Person',
+  '@id': `${siteUrl}/#author`,
+  name: SITE.author.name,
+  alternateName: SITE.author.legalName,
+  url: `${siteUrl}/about`,
+  image: `${siteUrl}${SITE.author.avatar}`,
+  jobTitle: SITE.author.role,
+  worksFor: {
+    '@type': 'Organization',
+    name: SITE.author.company,
+    url: SITE.author.companyUrl,
+  },
+  sameAs: [
+    SITE.author.social.linkedin,
+    SITE.author.social.twitter,
+    SITE.author.social.github,
+    SITE.author.social.medium,
+  ],
+  knowsAbout: SITE.author.knowsAbout,
+  description: SITE.author.bio,
+};
+
+// Publisher Entity
+const publisherEntity = {
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
+  name: SITE.name,
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${siteUrl}/favicon.svg`,
+  },
+};
+
+const schemas: any[] = [];
+
+if (type === 'website') {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: siteUrl,
+    name: SITE.name,
+    description: SITE.description,
+    publisher: publisherEntity,
+    author: authorEntity,
+    inLanguage: 'en-US',
+  });
+}
+
+if (type === 'profile') {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': `${siteUrl}/about#profile`,
+    url: `${siteUrl}/about`,
+    name: `About ${SITE.author.name}`,
+    description: SITE.author.bio,
+    mainEntity: authorEntity,
+  });
+}
+
+if (type === 'article') {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${fullUrl}#article`,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: SITE.name,
+      url: siteUrl,
+    },
+    headline: title,
+    description: description,
+    url: fullUrl,
+    mainEntityOfPage: fullUrl,
+    image: fullImageUrl,
+    datePublished: (datePublished || new Date()).toISOString(),
+    dateModified: (dateModified || datePublished || new Date()).toISOString(),
+    author: authorEntity,
+    publisher: publisherEntity,
+    keywords: tags.join(', '),
+    articleSection: category,
+    inLanguage: 'en-US',
+    wordCount: wordCount,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['#key-takeaways', 'h1', '.article-lead'],
+    },
+  });
+}
+
+// Optional FAQPage Schema (Massive citation booster for Perplexity and AI Overviews)
+if (faq && faq.length > 0) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${fullUrl}#faq`,
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  });
+}
+
+// Breadcrumbs Schema
+if (breadcrumbs && breadcrumbs.length > 0) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url.startsWith('http') ? crumb.url : `${siteUrl}${crumb.url}`,
+    })),
+  });
+}
+---
+
+{schemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} />
+))}

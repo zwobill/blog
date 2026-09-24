@@ -1,0 +1,158 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+import { Award, Building2, MapPin, ExternalLink, Mail, Sparkles, CheckCircle2 } from '@lucide/astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'About Bill Zuo', url: '/about' },
+];
+---
+
+<BaseLayout
+  title={`About ${SITE.author.name} | Founder & CEO at Softprobe`}
+  description="Executive background, 20+ years in distributed systems, Softprobe founder story, and runtime context philosophy."
+  type="profile"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Hero Profile Section -->
+    <header class="mb-12 flex flex-col items-center gap-8 text-center sm:flex-row sm:text-left">
+      <div class="relative shrink-0">
+        <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-sky-400 to-blue-600 opacity-20 blur-md"></div>
+        <img
+          src="/bill-zuo.jpg"
+          alt="Bill Zuo"
+          class="relative h-36 w-36 rounded-full border-4 border-white object-cover shadow-xl sm:h-44 sm:w-44 dark:border-slate-800"
+        />
+      </div>
+
+      <div class="flex-1">
+        <div class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-800 dark:border-sky-800 dark:bg-sky-950/60 dark:text-sky-300">
+          <span>Executive &amp; Systems Architect</span>
+        </div>
+
+        <h1 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-slate-50">
+          Bill Zuo (Yunfei Zuo)
+        </h1>
+
+        <p class="mt-2 text-base font-semibold text-sky-600 dark:text-sky-400">
+          Founder &amp; CEO at <a href="https://softprobe.ai" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-sky-700">Softprobe</a>
+        </p>
+
+        <div class="mt-3 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-500 sm:justify-start dark:text-slate-400">
+          <div class="flex items-center gap-1.5">
+            <MapPin class="h-3.5 w-3.5 text-slate-400" />
+            <span>Los Altos, California</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <Building2 class="h-3.5 w-3.5 text-slate-400" />
+            <span>Softprobe.ai</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <Award class="h-3.5 w-3.5 text-amber-500" />
+            <span>Founder Institute Alum</span>
+          </div>
+        </div>
+
+        <!-- Social Proof Buttons -->
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-2.5 sm:justify-start">
+          <a
+            href={SITE.author.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-sky-800 dark:hover:text-sky-400"
+          >
+            <svg class="h-3.5 w-3.5 fill-current text-[#0a66c2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 1.53-1.53 1.53 1.53 0 0 0-1.53-1.54 1.53 1.53 0 0 0-1.54 1.54 1.53 1.53 0 0 0 1.54 1.53m1.39 9.74v-8.37H5.07v8.37z"/></svg>
+            <span>LinkedIn /yunfeizuo</span>
+          </a>
+
+          <a
+            href={SITE.author.social.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-sky-800 dark:hover:text-sky-400"
+          >
+            <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span>X @billzwo</span>
+          </a>
+
+          <a
+            href={SITE.author.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-sky-800 dark:hover:text-sky-400"
+          >
+            <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            <span>GitHub @zwobill</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Bio / Experience Narrative -->
+    <div class="prose prose-slate lg:prose-lg dark:prose-invert max-w-none">
+      <h2>About Me</h2>
+      <p>
+        I am a tech executive and distributed systems architect with over 20 years of experience designing and scaling high-throughput backends, telemetry pipelines, and AI systems. Based in Los Altos, California, I am currently the Founder &amp; CEO at <a href="https://softprobe.ai" target="_blank" rel="noopener noreferrer">Softprobe</a>.
+      </p>
+
+      <h2>The Problem: The Observability "Indexing Tax"</h2>
+      <p>
+        Enterprises throw away billions in valuable data every single day. Why? Because storing 1 GB of raw telemetry in object storage costs a few cents, but making that same 1 GB searchable in a traditional observability warehouse often costs hundreds of dollars.
+      </p>
+      <p>
+        This massive <strong>indexing tax</strong> forces engineering teams into a vicious compromise: sampling 90% of their data away to stay within budget, only to fly completely blind when complex incidents or AI agent failures occur in production.
+      </p>
+
+      <h2>The Softprobe Thesis: Context Over Index</h2>
+      <p>
+        AI cannot operate software or perform root-cause triage without complete runtime context. At Softprobe, we are pioneering a fundamental architectural shift:
+      </p>
+      <ul>
+        <li><strong>Capture once, keep forever (cheap):</strong> Full OpenTelemetry traces and agent run evidence live in lake-backed storage (DuckLake). Evidence is never a temporary cache.</li>
+        <li><strong>Session Graph &amp; Directed Acyclic Graphs (DAGs):</strong> Instead of treating telemetry as disconnected flat text logs, we correlate sessions into structured graphs.</li>
+        <li><strong>Derived, rebuildable summaries:</strong> A lightweight catalog layer manages fast session triage, while the lake remains the uncompromised source of truth.</li>
+      </ul>
+
+      <h2>Recognitions &amp; Milestones</h2>
+      <div class="not-prose my-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-slate-200 bg-slate-50/70 p-5 dark:border-slate-800 dark:bg-slate-900/40">
+          <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+            <Award class="h-4 w-4" />
+            <span>Malaika Commons Founder Showcase</span>
+          </div>
+          <p class="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            Selected as the winning founder for Softprobe, judged by AWS and venture leaders on solving real AI runtime context bottlenecks.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50/70 p-5 dark:border-slate-800 dark:bg-slate-900/40">
+          <div class="flex items-center gap-2 text-sky-600 dark:text-sky-400 font-bold text-sm">
+            <Sparkles class="h-4 w-4" />
+            <span>Founder Institute Silicon Valley</span>
+          </div>
+          <p class="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            Graduated from the premier pre-seed accelerator program, pressure-testing business models and go-to-market execution.
+          </p>
+        </div>
+      </div>
+
+      <h2>Engineering Philosophy</h2>
+      <blockquote>
+        "Context Engineering is not about stacking prompts. The magic is in the system design — the historical decisions, the constraints, and the durable evidence."
+      </blockquote>
+
+      <h2>Connect</h2>
+      <p>
+        I enjoy connecting with engineers, founders, and researchers grappling with distributed storage, agent QA, or telemetry bottlenecks:
+      </p>
+      <ul>
+        <li>Connect on <a href={SITE.author.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn (yunfeizuo)</a></li>
+        <li>Follow on <a href={SITE.author.social.twitter} target="_blank" rel="noopener noreferrer">X / Twitter (@billzwo)</a></li>
+        <li>Explore code on <a href={SITE.author.social.github} target="_blank" rel="noopener noreferrer">GitHub (@zwobill)</a></li>
+        <li>Read Softprobe's open source projects on <a href="https://github.com/softprobe" target="_blank" rel="noopener noreferrer">github.com/softprobe</a></li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

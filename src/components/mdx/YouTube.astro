@@ -1,0 +1,79 @@
+---
+import { Play } from '@lucide/astro';
+
+export interface Props {
+  id: string;
+  title?: string;
+  poster?: string;
+}
+
+const { id, title = 'Watch video on YouTube', poster } = Astro.props;
+const thumbnailUrl = poster || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+---
+
+<div
+  class="youtube-facade group relative my-8 aspect-video w-full cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-slate-900 shadow-md dark:border-slate-800"
+  data-video-id={id}
+  data-title={title}
+  tabindex="0"
+  role="button"
+  aria-label={`Play YouTube video: ${title}`}
+>
+  <img
+    src={thumbnailUrl}
+    alt={title}
+    loading="lazy"
+    decoding="async"
+    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+  />
+
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity group-hover:opacity-80"></div>
+
+  <!-- Play Button Overlay -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-600/90 text-white shadow-xl transition-all duration-200 group-hover:scale-110 group-hover:bg-red-600">
+      <Play class="ml-1 h-7 w-7 fill-white" />
+    </div>
+  </div>
+
+  <!-- Video Title Overlay -->
+  <div class="absolute bottom-3 left-3 right-3 truncate text-xs font-medium text-white/90 drop-shadow-md sm:text-sm">
+    {title}
+  </div>
+</div>
+
+<script>
+  function setupYouTubeFacades() {
+    const facades = document.querySelectorAll('.youtube-facade');
+    facades.forEach((facade) => {
+      const activate = () => {
+        const id = facade.getAttribute('data-video-id');
+        const title = facade.getAttribute('data-title') || 'YouTube Video';
+        if (!id) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`);
+        iframe.setAttribute('title', title);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.className = 'w-full h-full absolute inset-0';
+
+        facade.innerHTML = '';
+        facade.appendChild(iframe);
+      };
+
+      facade.addEventListener('click', activate, { once: true });
+      facade.addEventListener('keydown', (e: Event) => {
+        const ke = e as KeyboardEvent;
+        if (ke.key === 'Enter' || ke.key === ' ') {
+          ke.preventDefault();
+          activate();
+        }
+      }, { once: true });
+    });
+  }
+
+  setupYouTubeFacades();
+  document.addEventListener('astro:page-load', setupYouTubeFacades);
+</script>

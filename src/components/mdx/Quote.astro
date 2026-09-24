@@ -1,0 +1,40 @@
+---
+import { Quote as QuoteIcon } from '@lucide/astro';
+
+export interface Props {
+  author?: string;
+  role?: string;
+  company?: string;
+  cite?: string;
+  sourceUrl?: string;
+}
+
+const { author, role, company, cite, sourceUrl } = Astro.props;
+---
+
+<blockquote class="my-8 rounded-xl border-l-4 border-sky-600 bg-slate-50/80 p-6 italic dark:border-sky-400 dark:bg-slate-900/40">
+  <div class="mb-3 text-sky-600/40 dark:text-sky-400/40">
+    <QuoteIcon class="h-6 w-6" />
+  </div>
+  <div class="text-base leading-relaxed text-slate-800 not-italic dark:text-slate-200">
+    <slot />
+  </div>
+  {(author || company || cite) && (
+    <footer class="mt-4 flex flex-wrap items-center gap-1.5 text-xs font-medium text-slate-500 not-italic dark:text-slate-400">
+      {author && <span class="font-semibold text-slate-900 dark:text-slate-100">{author}</span>}
+      {role && <span>— {role}</span>}
+      {company && <span>at {company}</span>}
+      {cite && (
+        <cite class="ml-1">
+          {sourceUrl ? (
+            <a href={sourceUrl} target="_blank" rel="noopener noreferrer" class="text-sky-600 hover:underline dark:text-sky-400">
+              ({cite})
+            </a>
+          ) : (
+            `(${cite})`
+          )}
+        </cite>
+      )}
+    </footer>
+  )}
+</blockquote>

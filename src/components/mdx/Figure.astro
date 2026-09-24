@@ -1,0 +1,30 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, alt, caption, width, height } = Astro.props;
+---
+
+<figure class="my-8 text-center">
+  <div class="overflow-hidden rounded-xl border border-slate-200 shadow-xs dark:border-slate-800">
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      class="mx-auto h-auto max-w-full"
+    />
+  </div>
+  {caption && (
+    <figcaption class="mt-2.5 text-center text-xs text-slate-500 dark:text-slate-400">
+      {caption}
+    </figcaption>
+  )}
+</figure>

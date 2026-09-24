@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1050" cy="150" r="300" fill="#0284c7" opacity="0.08" filter="blur(80px)" />
+  <circle cx="150" cy="500" r="250" fill="#2563eb" opacity="0.08" filter="blur(80px)" />
+  
+  <!-- Content Area -->
+  <g transform="translate(100, 140)">
+    <!-- Brand Pill -->
+    <rect x="0" y="0" width="220" height="42" rx="21" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <circle cx="24" cy="21" r="6" fill="#38bdf8" />
+    <text x="42" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#94a3b8">BILL ZUO • BLOG</text>
+    
+    <!-- Title -->
+    <text x="0" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="800" fill="#f8fafc" letter-spacing="-1.5">
+      Bill Zuo
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="200" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="500" fill="#38bdf8">
+      Founder &amp; CEO at Softprobe
+    </text>
+    
+    <text x="0" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="400" fill="#94a3b8">
+      Distributed Telemetry • Agent QA • Context vs Indexing Tax • Generative SEO
+    </text>
+  </g>
+  
+  <!-- Bottom Bar -->
+  <g transform="translate(100, 520)">
+    <line x1="0" y1="0" x2="1000" y2="0" stroke="#334155" stroke-width="1" />
+    <text x="0" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="#64748b">billzuo.com</text>
+    <text x="1000" y="45" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="500" fill="#64748b">@billzwo • in/yunfeizuo</text>
+  </g>
+</svg>

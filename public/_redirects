@@ -1,0 +1,11 @@
+# Cloudflare canonical redirects
+# Feed aliases
+/feed /rss.xml 301
+/atom.xml /rss.xml 301
+/feed.xml /rss.xml 301
+
+# Author short-links
+/linkedin https://linkedin.com/in/yunfeizuo 302
+/twitter https://x.com/billzwo 302
+/x https://x.com/billzwo 302
+/github https://github.com/zwobill 302

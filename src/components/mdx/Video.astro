@@ -1,0 +1,37 @@
+---
+export interface Props {
+  src: string;
+  poster?: string;
+  caption?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+}
+
+const { src, poster, caption, autoplay = false, loop = false, muted = false } = Astro.props;
+---
+
+<figure class="my-8 overflow-hidden rounded-xl border border-slate-200 bg-slate-900/5 shadow-xs dark:border-slate-800 dark:bg-slate-900/40">
+  <div class="relative aspect-video w-full overflow-hidden bg-black">
+    <video
+      controls
+      preload="metadata"
+      poster={poster}
+      autoplay={autoplay}
+      loop={loop}
+      muted={muted}
+      playsinline
+      class="h-full w-full object-contain"
+    >
+      <source src={src} type="video/mp4" />
+      <p class="p-4 text-center text-sm text-slate-400">
+        Your browser doesn't support HTML5 video. Here is a <a href={src} class="text-sky-400 underline">direct link to the video</a>.
+      </p>
+    </video>
+  </div>
+  {caption && (
+    <figcaption class="px-4 py-2.5 text-center text-xs text-slate-500 dark:text-slate-400">
+      {caption}
+    </figcaption>
+  )}
+</figure>

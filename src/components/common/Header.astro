@@ -1,0 +1,149 @@
+---
+import { SITE } from '@/config/site';
+import ThemeToggle from './ThemeToggle.astro';
+import { Search, Menu, X, ArrowUpRight } from '@lucide/astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md transition-colors dark:border-slate-800/80 dark:bg-slate-950/80">
+  <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <!-- Brand Logo -->
+    <a href="/" class="group flex items-center gap-3">
+      <img
+        src="/bill-zuo.jpg"
+        alt="Bill Zuo"
+        class="h-9 w-9 rounded-full border border-slate-300 object-cover shadow-2xs transition-transform duration-200 group-hover:scale-105 dark:border-slate-700"
+      />
+      <div>
+        <span class="text-base font-bold tracking-tight text-slate-900 group-hover:text-sky-600 dark:text-slate-100 dark:group-hover:text-sky-400">
+          Bill Zuo
+        </span>
+        <span class="hidden text-xs text-slate-500 sm:inline-block sm:ml-2 dark:text-slate-400">
+          Founder Softprobe
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Main Navigation">
+      {SITE.nav.map((item) => {
+        const isActive =
+          item.href === '/'
+            ? currentPath === '/'
+            : currentPath.startsWith(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors ${
+              isActive
+                ? 'bg-slate-100 text-sky-600 dark:bg-slate-800 dark:text-sky-400'
+                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100'
+            }`}
+          >
+            {item.name}
+          </a>
+        );
+      })}
+
+      <!-- External Company Link -->
+      <a
+        href="https://softprobe.ai"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-400"
+      >
+        Softprobe
+        <ArrowUpRight class="h-3.5 w-3.5 opacity-70" />
+      </a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2">
+      <!-- Search Button Trigger -->
+      <button
+        id="open-search-btn"
+        type="button"
+        aria-label="Search articles"
+        class="flex h-9 items-center gap-2 rounded-lg border border-slate-200 px-2.5 text-sm text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+      >
+        <Search class="h-4 w-4" />
+        <span class="hidden text-xs text-slate-400 sm:inline">Search</span>
+        <kbd class="hidden rounded-sm border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 sm:inline dark:border-slate-700 dark:bg-slate-900 dark:text-slate-500">⌘K</kbd>
+      </button>
+
+      <ThemeToggle />
+
+      <!-- Mobile Menu Toggle -->
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        aria-label="Toggle mobile menu"
+        class="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 md:hidden dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+      >
+        <Menu class="h-5 w-5 menu-open-icon" />
+        <X class="hidden h-5 w-5 menu-close-icon" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden border-b border-slate-200 bg-white px-4 py-4 md:hidden dark:border-slate-800 dark:bg-slate-950">
+    <nav class="flex flex-col gap-2">
+      {SITE.nav.map((item) => {
+        const isActive =
+          item.href === '/'
+            ? currentPath === '/'
+            : currentPath.startsWith(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`rounded-lg px-3 py-2 text-base font-medium transition-colors ${
+              isActive
+                ? 'bg-slate-100 text-sky-600 dark:bg-slate-800 dark:text-sky-400'
+                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-slate-100'
+            }`}
+          >
+            {item.name}
+          </a>
+        );
+      })}
+      <a
+        href="https://softprobe.ai"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-between rounded-lg px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400"
+      >
+        <span>Softprobe.ai</span>
+        <ArrowUpRight class="h-4 w-4" />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupMobileMenu() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const openIcon = toggle?.querySelector('.menu-open-icon');
+    const closeIcon = toggle?.querySelector('.menu-close-icon');
+
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', () => {
+      const isExpanded = !menu.classList.contains('hidden');
+      if (isExpanded) {
+        menu.classList.add('hidden');
+        openIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+      } else {
+        menu.classList.remove('hidden');
+        openIcon?.classList.add('hidden');
+        closeIcon?.classList.remove('hidden');
+      }
+    });
+  }
+
+  setupMobileMenu();
+  document.addEventListener('astro:page-load', setupMobileMenu);
+</script>

@@ -1,0 +1,170 @@
+---
+import { Search, X, FileText, ArrowRight } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .map((post) => ({
+    title: post.data.title,
+    description: post.data.description,
+    slug: post.id.replace(/\.(md|mdx)$/, ''),
+    tags: post.data.tags,
+    category: post.data.category,
+    date: post.data.pubDate.toISOString().split('T')[0],
+  }));
+---
+
+<div
+  id="search-modal"
+  class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-xs transition-opacity"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search articles"
+>
+  <div class="flex min-h-screen items-start justify-center p-4 pt-16 sm:p-6 sm:pt-24">
+    <div
+      id="search-container"
+      class="w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
+    >
+      <!-- Search Input Bar -->
+      <div class="flex items-center border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+        <Search class="h-5 w-5 text-slate-400" />
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search articles by title, topic, or keyword..."
+          class="ml-3 flex-1 bg-transparent text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden dark:text-slate-100"
+          autocomplete="off"
+        />
+        <button
+          id="close-search-btn"
+          type="button"
+          class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+        >
+          <X class="h-5 w-5" />
+        </button>
+      </div>
+
+      <!-- Results Container -->
+      <div id="search-results" class="max-h-96 overflow-y-auto p-2">
+        <div id="no-results" class="hidden p-8 text-center text-sm text-slate-500 dark:text-slate-400">
+          No articles found matching your query.
+        </div>
+        <div id="results-list" class="space-y-1">
+          <!-- Populated via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="flex items-center justify-between border-t border-slate-100 bg-slate-50/80 px-4 py-2.5 text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-950/50 dark:text-slate-400">
+        <div class="flex items-center gap-2">
+          <span>Navigate with</span>
+          <kbd class="rounded border border-slate-200 bg-white px-1 py-0.5 font-mono text-[10px] dark:border-slate-700 dark:bg-slate-800">↑</kbd>
+          <kbd class="rounded border border-slate-200 bg-white px-1 py-0.5 font-mono text-[10px] dark:border-slate-700 dark:bg-slate-800">↓</kbd>
+        </div>
+        <div>
+          <span>Press</span>
+          <kbd class="rounded border border-slate-200 bg-white px-1 py-0.5 font-mono text-[10px] dark:border-slate-700 dark:bg-slate-800">ESC</kbd>
+          <span>to close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ postsData: posts }}>
+  function setupSearch() {
+    const modal = document.getElementById('search-modal');
+    const input = document.getElementById('search-input');
+    const openBtn = document.getElementById('open-search-btn');
+    const closeBtn = document.getElementById('close-search-btn');
+    const resultsList = document.getElementById('results-list');
+    const noResults = document.getElementById('no-results');
+
+    if (!modal || !input || !resultsList) return;
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      input.value = '';
+      renderResults(postsData);
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+    }
+
+    openBtn?.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || (e.target.parentElement && e.target.parentElement === modal)) {
+        closeModal();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (modal.classList.contains('hidden')) {
+          openModal();
+        } else {
+          closeModal();
+        }
+      }
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLowerCase();
+      if (!query) {
+        renderResults(postsData);
+        return;
+      }
+
+      const filtered = postsData.filter((post) => {
+        const titleMatch = post.title.toLowerCase().includes(query);
+        const descMatch = post.description.toLowerCase().includes(query);
+        const tagMatch = post.tags.some((t) => t.toLowerCase().includes(query));
+        const catMatch = post.category.toLowerCase().includes(query);
+        return titleMatch || descMatch || tagMatch || catMatch;
+      });
+
+      renderResults(filtered);
+    });
+
+    function renderResults(items) {
+      resultsList.innerHTML = '';
+      if (!items || items.length === 0) {
+        noResults.classList.remove('hidden');
+        return;
+      }
+      noResults.classList.add('hidden');
+
+      items.forEach((post) => {
+        const item = document.createElement('a');
+        item.href = `/blog/${post.slug}`;
+        item.className =
+          'group flex flex-col p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-left';
+        item.innerHTML = `
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-medium text-sky-600 dark:text-sky-400">${post.category}</span>
+            <span class="text-[11px] text-slate-400">${post.date}</span>
+          </div>
+          <h4 class="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-sky-600 dark:group-hover:text-sky-400">
+            ${post.title}
+          </h4>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
+            ${post.description}
+          </p>
+        `;
+        resultsList.appendChild(item);
+      });
+    }
+  }
+
+  setupSearch();
+  document.addEventListener('astro:page-load', setupSearch);
+</script>

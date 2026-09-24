@@ -1,0 +1,83 @@
+---
+import '@/styles/global.css';
+import BaseHead from '@/components/seo/BaseHead.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+import SearchModal from '@/components/common/SearchModal.astro';
+import { SITE } from '@/config/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article' | 'profile';
+  articleDate?: Date;
+  articleModifiedDate?: Date;
+  articleTags?: string[];
+  canonicalUrl?: string;
+  wordCount?: number;
+  faq?: Array<{ question: string; answer: string }>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  image = SITE.defaultOgImage,
+  type = 'website',
+  articleDate,
+  articleModifiedDate,
+  articleTags = [],
+  canonicalUrl,
+  wordCount,
+  faq = [],
+  breadcrumbs = [],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      articleDate={articleDate}
+      articleModifiedDate={articleModifiedDate}
+      articleTags={articleTags}
+      canonicalUrl={canonicalUrl}
+    />
+    <JsonLd
+      type={type}
+      title={title}
+      description={description}
+      url={canonicalUrl}
+      image={image}
+      datePublished={articleDate}
+      dateModified={articleModifiedDate}
+      tags={articleTags}
+      wordCount={wordCount}
+      faq={faq}
+      breadcrumbs={breadcrumbs}
+    />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white text-slate-900 antialiased selection:bg-sky-500 selection:text-white dark:bg-[#090d16] dark:text-slate-100">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-sky-600 focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+    <SearchModal />
+  </body>
+</html>
