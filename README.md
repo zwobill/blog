@@ -58,5 +58,5 @@ npm run preview
    - **Framework preset:** `Astro`
    - **Build command:** `npm run build`
    - **Build output directory:** `dist/client`
-   - **Environment variable:** `NODE_VERSION = 20` (or detected via `.node-version`)
+   - **Environment variable:** `NODE_VERSION = 22` (or automatically detected via `.node-version` / `.nvmrc`)
 4. Click **Save and Deploy**. Cloudflare's GitHub App will deploy your site on every push to `main` with zero GitHub Actions required.
