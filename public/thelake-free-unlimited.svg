@@ -42,7 +42,7 @@
     <rect width="335" height="300" rx="28" fill="#142538" stroke="#31465a" stroke-width="2"/>
     <circle cx="74" cy="78" r="35" fill="#46372c"/>
     <path d="m58 82 11 11 23-27" fill="none" stroke="url(#orange)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="126" y="74" fill="#f5f8fa" font-family="Arial,sans-serif" font-size="27" font-weight="700">Review & improve</text>
+    <text x="126" y="74" fill="#f5f8fa" font-family="Arial,sans-serif" font-size="27" font-weight="700">Review &amp; improve</text>
     <text x="42" y="153" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Inspect a session step by step</text>
     <text x="42" y="187" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Diagnose patterns with evidence</text>
     <rect x="42" y="226" width="250" height="38" rx="19" fill="#47372d"/>
