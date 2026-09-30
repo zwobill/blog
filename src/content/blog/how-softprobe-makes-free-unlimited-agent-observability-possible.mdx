@@ -40,14 +40,6 @@ The question is not whether storing data costs nothing. It does not. The questio
 
 Softprobe’s answer begins with **[thelake](https://thelake.softprobe.ai/)**, its open-source evidence lake.
 
-<Figure
-  src="/thelake-free-unlimited.svg"
-  alt="Agent sessions flow through thelake into Softprobe's review and diagnosis product."
-  width={1600}
-  height={900}
-  caption="Capture is the free starting point; evidence-backed diagnosis and team workflows are the paid layer."
-/>
-
 ## The offer: make capture easy to adopt
 
 Agent sessions contain the sequence behind an outcome: model calls, tool actions, inputs, outputs, timing, and failures. When only a sample of sessions is available, a team can miss the exact retry loop or tool interaction it needs to investigate.
@@ -62,20 +54,13 @@ The current Individuals plan lists unlimited session ingestion and 365-day sessi
 
 [thelake’s public repository](https://github.com/softprobe/thelake) describes a Rust runtime for authenticated OTLP ingestion, tenant-scoped DuckLake storage, DuckDB queries, and telemetry search. Its architecture sends OTLP data through the runtime into DuckLake, with DuckDB available for queries. The project identifies DuckLake as its durable telemetry backend.
 
-```text
-Agent or application
-        │
-        │  OpenTelemetry (OTLP)
-        ▼
-  thelake runtime
-        │
-        │  DuckLake-backed evidence
-        ▼
-  Session and telemetry queries
-        │
-        ▼
-  Softprobe Explorer
-```
+<Figure
+  src="/thelake-free-unlimited.svg"
+  alt="Four architecture layers show agents and applications sending OpenTelemetry data to the thelake runtime, DuckLake and Parquet storing evidence, and session queries reaching Softprobe Explorer."
+  width={1200}
+  height={760}
+  caption="Capture → thelake runtime → DuckLake and Parquet evidence → session queries in Softprobe Explorer."
+/>
 
 This design is different from treating a large, always-hot, full-text index as the only place telemetry can live. thelake’s public design centers durable data on DuckLake and query work on DuckDB. That gives Softprobe a path to preserve rich evidence while keeping storage and search as distinct concerns.
 

@@ -1,53 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">How thelake supports Softprobe's free agent session capture</title>
-  <desc id="desc">Agent sessions flow into thelake, where DuckLake stores durable evidence; Softprobe turns captured sessions into diagnosis and team review.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Softprobe and thelake layered architecture</title><desc id="desc">Four simple layers show agent and application telemetry flowing through OpenTelemetry into the thelake runtime, DuckLake and Parquet storage, then session queries in Softprobe Explorer.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08111f"/><stop offset="1" stop-color="#132b3c"/></linearGradient>
-    <linearGradient id="lake" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#57d5c5"/><stop offset="1" stop-color="#3d92e8"/></linearGradient>
-    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffbd73"/><stop offset="1" stop-color="#f48446"/></linearGradient>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="22"/></filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#6fd8d0"/></marker>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#64748b"/></marker>
+    <g id="lake"><rect width="42" height="42" rx="10" fill="#251f19"/><path d="M10 16h22M10 21h22M10 27h22" stroke="#f7f7f4" stroke-width="2.4" stroke-linecap="round"/><path d="M10 16h14" stroke="#f48d16" stroke-width="2.4" stroke-linecap="round"/></g>
+    <g id="softprobe"><g fill="none" stroke="#101014" stroke-width="3.7" stroke-linejoin="round"><path d="M14 3h16a7 7 0 0 1 7 7v16a7 7 0 0 1-7 7H14a7 7 0 0 1-7-7V10a7 7 0 0 1 7-7Z"/><path d="m18 1 15 4a7 7 0 0 1 5 9l-4 15a7 7 0 0 1-9 5L10 30a7 7 0 0 1-5-9l4-15a7 7 0 0 1 9-5Z"/></g><path fill="#f48d16" d="m19 14 6 2a4 4 0 0 1 2.8 4.9l-1.6 5.8a4 4 0 0 1-4.9 2.8l-5.8-1.6a4 4 0 0 1-2.8-4.9l1.6-5.8A4 4 0 0 1 19 14Z"/></g>
+    <g id="agent" fill="none" stroke="#334155" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="30" height="23" rx="5"/><path d="M14 34h12M20 30v4M13 17h.1M27 17h.1M14 23c3 3 9 3 12 0"/></g>
+    <g id="db" fill="none" stroke="#334155" stroke-width="2.2"><ellipse cx="20" cy="8" rx="15" ry="5"/><path d="M5 8v21c0 3 7 6 15 6s15-3 15-6V8M5 18c0 3 7 5 15 5s15-2 15-5"/></g>
   </defs>
-  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
-  <circle cx="800" cy="448" r="255" fill="#3acdb9" opacity=".13" filter="url(#glow)"/>
-  <text x="112" y="123" fill="#77dacf" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">SOFTPROBE · AGENT PERFORMANCE</text>
-  <text x="112" y="204" fill="#f6fafc" font-family="Arial,sans-serif" font-size="52" font-weight="700">Keep the evidence. Make review the product.</text>
-  <text x="112" y="253" fill="#aebec9" font-family="Arial,sans-serif" font-size="24">A lake-backed capture layer changes the economics of observing every agent session.</text>
-  <!-- left: agents -->
-  <g transform="translate(125 355)">
-    <rect width="335" height="300" rx="28" fill="#142538" stroke="#31465a" stroke-width="2"/>
-    <circle cx="74" cy="78" r="35" fill="#203d51"/>
-    <path d="M57 80c0-12 8-20 18-20s18 8 18 20v17H57zm4 0h29M66 73h1m17 0h1" fill="none" stroke="#82b8d2" stroke-width="4" stroke-linecap="round"/>
-    <text x="126" y="74" fill="#f5f8fa" font-family="Arial,sans-serif" font-size="27" font-weight="700">Agent sessions</text>
-    <text x="42" y="153" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Model calls · tool steps</text>
-    <text x="42" y="187" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Inputs · outputs · timing</text>
-    <rect x="42" y="226" width="250" height="38" rx="19" fill="#1d384b"/>
-    <text x="167" y="252" text-anchor="middle" fill="#8bd9d2" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="1">CAPTURE THROUGH OTLP</text>
+  <rect width="1200" height="760" rx="28" fill="#f8fafc"/>
+  <text x="84" y="83" fill="#0f172a" font-family="Arial,sans-serif" font-size="32" font-weight="700">Agent evidence, layer by layer</text>
+  <text x="84" y="116" fill="#64748b" font-family="Arial,sans-serif" font-size="17">A simple path from capture to review</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="185" y="151" width="830" height="100" rx="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="225" cy="201" r="25" fill="#e0f2fe"/><use href="#agent" x="205" y="181" width="40" height="40"/>
+    <text x="270" y="194" fill="#0f172a" font-size="21" font-weight="700">Agents and applications</text><text x="270" y="222" fill="#64748b" font-size="15">Produce traces and session events</text>
+    <path d="M604 176v50" stroke="#e2e8f0" stroke-width="2"/>
+    <circle cx="650" cy="201" r="25" fill="#fff7ed"/><circle cx="643" cy="194" r="4" fill="#f48d16"/><circle cx="657" cy="194" r="4" fill="#425cc7"/><circle cx="650" cy="208" r="4" fill="#f48d16"/><path d="m645 197 3 7m7-7-3 7" stroke="#64748b" stroke-width="2"/>
+    <text x="692" y="194" fill="#0f172a" font-size="21" font-weight="700">OpenTelemetry · OTLP</text><text x="692" y="222" fill="#64748b" font-size="15">Standard ingest path</text>
+    <path d="M600 254v22" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+    <rect x="185" y="287" width="830" height="90" rx="16" fill="#eaf5f7" stroke="#84bac3" stroke-width="2"/>
+    <use href="#lake" x="220" y="311" width="42" height="42"/><text x="286" y="329" fill="#0f172a" font-size="22" font-weight="700">thelake runtime</text><text x="286" y="354" fill="#526878" font-size="15">Authenticated ingest and tenant routing</text>
+    <path d="M600 380v22" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+    <rect x="185" y="413" width="830" height="116" rx="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="220" y="444" fill="#64748b" font-size="13" font-weight="700" letter-spacing="1.5">DURABLE EVIDENCE</text>
+    <use href="#db" x="220" y="458" width="40" height="40"/><text x="275" y="478" fill="#0f172a" font-size="20" font-weight="700">DuckLake</text><text x="275" y="504" fill="#64748b" font-size="15">Catalog and snapshots</text>
+    <path d="M590 451v62" stroke="#e2e8f0" stroke-width="2"/>
+    <g transform="translate(633 461)" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.4"><path d="M0 8 24 0l24 8-24 8z"/><path d="M0 17 24 9l24 8-24 8z"/><path d="M0 26 24 18l24 8-24 8z"/></g><text x="700" y="478" fill="#0f172a" font-size="20" font-weight="700">Parquet files</text><text x="700" y="504" fill="#64748b" font-size="15">Columnar session data</text>
+    <path d="M600 532v22" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+    <rect x="185" y="565" width="830" height="106" rx="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="235" cy="618" r="25" fill="#eef2ff"/><path d="M224 618a11 11 0 1 1 3 8m-3 3v-8h8" fill="none" stroke="#425cc7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="280" y="610" fill="#0f172a" font-size="21" font-weight="700">Session queries</text><text x="280" y="638" fill="#64748b" font-size="15">Read evidence for inspection</text>
+    <path d="M604 588v60" stroke="#e2e8f0" stroke-width="2"/>
+    <use href="#softprobe" x="650" y="594" width="46" height="46"/><text x="714" y="610" fill="#0f172a" font-size="21" font-weight="700">Softprobe Explorer</text><text x="714" y="638" fill="#64748b" font-size="15">Inspect sessions and steps</text>
   </g>
-  <!-- arrow 1 -->
-  <path d="M478 505h108" fill="none" stroke="#6fd8d0" stroke-width="5" marker-end="url(#arrow)"/>
-  <!-- center: lake -->
-  <g transform="translate(620 323)">
-    <rect width="365" height="364" rx="32" fill="#12313b" stroke="#4dc5ba" stroke-width="2.5"/>
-    <rect x="24" y="24" width="317" height="316" rx="24" fill="url(#lake)" opacity=".12"/>
-    <path d="M95 132c54-24 122-24 176 0v27c-54 24-122 24-176 0zm0 47c54 24 122 24 176 0v27c-54 24-122 24-176 0zm0 48c54 24 122 24 176 0v27c-54 24-122 24-176 0z" fill="none" stroke="url(#lake)" stroke-width="7"/>
-    <text x="182" y="86" text-anchor="middle" fill="#f5fbfc" font-family="Arial,sans-serif" font-size="31" font-weight="700">thelake</text>
-    <text x="182" y="300" text-anchor="middle" fill="#b8d8dc" font-family="Arial,sans-serif" font-size="18">Open-source · DuckLake · DuckDB</text>
-    <text x="182" y="328" text-anchor="middle" fill="#b8d8dc" font-family="Arial,sans-serif" font-size="17">Durable session evidence</text>
-  </g>
-  <!-- arrow 2 -->
-  <path d="M1004 505h108" fill="none" stroke="#6fd8d0" stroke-width="5" marker-end="url(#arrow)"/>
-  <!-- right: outcome -->
-  <g transform="translate(1145 355)">
-    <rect width="335" height="300" rx="28" fill="#142538" stroke="#31465a" stroke-width="2"/>
-    <circle cx="74" cy="78" r="35" fill="#46372c"/>
-    <path d="m58 82 11 11 23-27" fill="none" stroke="url(#orange)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="126" y="74" fill="#f5f8fa" font-family="Arial,sans-serif" font-size="27" font-weight="700">Review &amp; improve</text>
-    <text x="42" y="153" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Inspect a session step by step</text>
-    <text x="42" y="187" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Diagnose patterns with evidence</text>
-    <rect x="42" y="226" width="250" height="38" rx="19" fill="#47372d"/>
-    <text x="167" y="252" text-anchor="middle" fill="#ffc18a" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="1">PAID TEAM CAPABILITIES</text>
-  </g>
-  <text x="800" y="790" text-anchor="middle" fill="#d9e7ec" font-family="Arial,sans-serif" font-size="21">Capture is free on Individuals · session history is 365 days · team diagnosis is a paid layer</text>
-  <text x="800" y="840" text-anchor="middle" fill="#738997" font-family="Arial,sans-serif" font-size="16">Conceptual overview based on public product and repository documentation</text>
+  <text x="600" y="718" text-anchor="middle" fill="#94a3b8" font-family="Arial,sans-serif" font-size="13">Sources → OTLP → runtime → lake evidence → session queries</text>
 </svg>
