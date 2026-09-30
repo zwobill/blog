@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">How thelake supports Softprobe's free agent session capture</title>
+  <desc id="desc">Agent sessions flow into thelake, where DuckLake stores durable evidence; Softprobe turns captured sessions into diagnosis and team review.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08111f"/><stop offset="1" stop-color="#132b3c"/></linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#57d5c5"/><stop offset="1" stop-color="#3d92e8"/></linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffbd73"/><stop offset="1" stop-color="#f48446"/></linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="22"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#6fd8d0"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <circle cx="800" cy="448" r="255" fill="#3acdb9" opacity=".13" filter="url(#glow)"/>
+  <text x="112" y="123" fill="#77dacf" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">SOFTPROBE · AGENT PERFORMANCE</text>
+  <text x="112" y="204" fill="#f6fafc" font-family="Arial,sans-serif" font-size="52" font-weight="700">Keep the evidence. Make review the product.</text>
+  <text x="112" y="253" fill="#aebec9" font-family="Arial,sans-serif" font-size="24">A lake-backed capture layer changes the economics of observing every agent session.</text>
+  <!-- left: agents -->
+  <g transform="translate(125 355)">
+    <rect width="335" height="300" rx="28" fill="#142538" stroke="#31465a" stroke-width="2"/>
+    <circle cx="74" cy="78" r="35" fill="#203d51"/>
+    <path d="M57 80c0-12 8-20 18-20s18 8 18 20v17H57zm4 0h29M66 73h1m17 0h1" fill="none" stroke="#82b8d2" stroke-width="4" stroke-linecap="round"/>
+    <text x="126" y="74" fill="#f5f8fa" font-family="Arial,sans-serif" font-size="27" font-weight="700">Agent sessions</text>
+    <text x="42" y="153" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Model calls · tool steps</text>
+    <text x="42" y="187" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Inputs · outputs · timing</text>
+    <rect x="42" y="226" width="250" height="38" rx="19" fill="#1d384b"/>
+    <text x="167" y="252" text-anchor="middle" fill="#8bd9d2" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="1">CAPTURE THROUGH OTLP</text>
+  </g>
+  <!-- arrow 1 -->
+  <path d="M478 505h108" fill="none" stroke="#6fd8d0" stroke-width="5" marker-end="url(#arrow)"/>
+  <!-- center: lake -->
+  <g transform="translate(620 323)">
+    <rect width="365" height="364" rx="32" fill="#12313b" stroke="#4dc5ba" stroke-width="2.5"/>
+    <rect x="24" y="24" width="317" height="316" rx="24" fill="url(#lake)" opacity=".12"/>
+    <path d="M95 132c54-24 122-24 176 0v27c-54 24-122 24-176 0zm0 47c54 24 122 24 176 0v27c-54 24-122 24-176 0zm0 48c54 24 122 24 176 0v27c-54 24-122 24-176 0z" fill="none" stroke="url(#lake)" stroke-width="7"/>
+    <text x="182" y="86" text-anchor="middle" fill="#f5fbfc" font-family="Arial,sans-serif" font-size="31" font-weight="700">thelake</text>
+    <text x="182" y="300" text-anchor="middle" fill="#b8d8dc" font-family="Arial,sans-serif" font-size="18">Open-source · DuckLake · DuckDB</text>
+    <text x="182" y="328" text-anchor="middle" fill="#b8d8dc" font-family="Arial,sans-serif" font-size="17">Durable session evidence</text>
+  </g>
+  <!-- arrow 2 -->
+  <path d="M1004 505h108" fill="none" stroke="#6fd8d0" stroke-width="5" marker-end="url(#arrow)"/>
+  <!-- right: outcome -->
+  <g transform="translate(1145 355)">
+    <rect width="335" height="300" rx="28" fill="#142538" stroke="#31465a" stroke-width="2"/>
+    <circle cx="74" cy="78" r="35" fill="#46372c"/>
+    <path d="m58 82 11 11 23-27" fill="none" stroke="url(#orange)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="126" y="74" fill="#f5f8fa" font-family="Arial,sans-serif" font-size="27" font-weight="700">Review & improve</text>
+    <text x="42" y="153" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Inspect a session step by step</text>
+    <text x="42" y="187" fill="#b6c6d1" font-family="Arial,sans-serif" font-size="20">Diagnose patterns with evidence</text>
+    <rect x="42" y="226" width="250" height="38" rx="19" fill="#47372d"/>
+    <text x="167" y="252" text-anchor="middle" fill="#ffc18a" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="1">PAID TEAM CAPABILITIES</text>
+  </g>
+  <text x="800" y="790" text-anchor="middle" fill="#d9e7ec" font-family="Arial,sans-serif" font-size="21">Capture is free on Individuals · session history is 365 days · team diagnosis is a paid layer</text>
+  <text x="800" y="840" text-anchor="middle" fill="#738997" font-family="Arial,sans-serif" font-size="16">Conceptual overview based on public product and repository documentation</text>
+</svg>

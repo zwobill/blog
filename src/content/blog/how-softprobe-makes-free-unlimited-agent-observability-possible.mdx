@@ -1,0 +1,127 @@
+---
+title: "How Softprobe Makes Free, Unlimited Agent Observability Possible"
+description: "Softprobe offers unlimited agent-session ingestion on its free Individuals plan. Here is how an open evidence lake supports that product model—and where paid diagnosis fits."
+pubDate: 2026-09-29
+author: "Bill Zuo"
+heroImage: "/thelake-free-unlimited.svg"
+heroImageAlt: "Agent sessions flow into thelake and onward to Softprobe's evidence-backed team review tools."
+category: "Agent Observability"
+tags: ["agent-observability", "thelake", "open-source", "data-economics"]
+featured: true
+keyTakeaways:
+  - "Softprobe's Individuals plan lists unlimited session ingestion, unlimited agents, and 365-day session history at no charge."
+  - "thelake is the open-source runtime behind a lake-based approach to storing and querying telemetry evidence."
+  - "Keeping capture broadly available lets teams build a complete session history before they need paid diagnosis and collaboration features."
+  - "Unlimited ingestion is not unlimited retention: Softprobe lists a 365-day history on Individuals."
+faq:
+  - question: "Does Softprobe's free plan include unlimited agent sessions?"
+    answer: "Softprobe's public pricing page lists unlimited session ingestion and unlimited agents for Individuals, alongside session and step exploration and 365-day session history."
+  - question: "What is thelake?"
+    answer: "thelake is Softprobe's open-source runtime for authenticated OTLP ingestion, tenant-scoped DuckLake storage, DuckDB queries, and telemetry search."
+  - question: "Does unlimited ingestion mean data is retained forever?"
+    answer: "No. The public Individuals plan lists 365-day session history. Ingestion volume and retention duration are separate parts of the offer."
+---
+
+import KeyTakeaways from '@/components/mdx/KeyTakeaways.astro';
+import Figure from '@/components/mdx/Figure.astro';
+import Callout from '@/components/mdx/Callout.astro';
+import FAQ from '@/components/mdx/FAQ.astro';
+
+<KeyTakeaways items={[
+  "Unlimited session ingestion is a published feature of Softprobe's free Individuals plan.",
+  "thelake stores telemetry through a DuckLake-centered architecture and is available as open source.",
+  "Softprobe can make capture a free entry point and charge for diagnosis, collaboration, and enterprise controls.",
+  "The plan lists 365-day history; unlimited ingestion does not mean forever retention."
+]} />
+
+Softprobe’s pricing page makes a bold promise: **unlimited session ingestion, free forever**. The Individuals plan also lists unlimited agents, Session and Step Explorer, model and tool-call details, and **365-day session history**. [See the current plan details](https://softprobe.ai/).
+
+The question is not whether storing data costs nothing. It does not. The question is what kind of storage and query architecture makes it practical to let people capture every agent session without charging by the session.
+
+Softprobe’s answer begins with **[thelake](https://thelake.softprobe.ai/)**, its open-source evidence lake.
+
+<Figure
+  src="/thelake-free-unlimited.svg"
+  alt="Agent sessions flow through thelake into Softprobe's review and diagnosis product."
+  width={1600}
+  height={900}
+  caption="Capture is the free starting point; evidence-backed diagnosis and team workflows are the paid layer."
+/>
+
+## The offer: make capture easy to adopt
+
+Agent sessions contain the sequence behind an outcome: model calls, tool actions, inputs, outputs, timing, and failures. When only a sample of sessions is available, a team can miss the exact retry loop or tool interaction it needs to investigate.
+
+Softprobe’s free Individuals plan is designed to remove that ingestion meter. It lists unlimited session ingestion and agents, with 365 days of session history. Users can inspect sessions and steps, including model and tool-call details. Those are concrete plan features, not a promise that retention is infinite or that operating storage has no cost.
+
+<Callout type="note" title="Ingestion and retention are different limits">
+The current Individuals plan lists unlimited session ingestion and 365-day session history. “Unlimited” applies to the volume of sessions accepted, while the published plan still sets a history window.
+</Callout>
+
+## The architecture: keep evidence in a lake
+
+[thelake’s public repository](https://github.com/softprobe/thelake) describes a Rust runtime for authenticated OTLP ingestion, tenant-scoped DuckLake storage, DuckDB queries, and telemetry search. Its architecture sends OTLP data through the runtime into DuckLake, with DuckDB available for queries. The project identifies DuckLake as its durable telemetry backend.
+
+```text
+Agent or application
+        │
+        │  OpenTelemetry (OTLP)
+        ▼
+  thelake runtime
+        │
+        │  DuckLake-backed evidence
+        ▼
+  Session and telemetry queries
+        │
+        ▼
+  Softprobe Explorer
+```
+
+This design is different from treating a large, always-hot, full-text index as the only place telemetry can live. thelake’s public design centers durable data on DuckLake and query work on DuckDB. That gives Softprobe a path to preserve rich evidence while keeping storage and search as distinct concerns.
+
+It does not make compute, storage, or operations free. It changes the system being operated and the relationship between captured evidence and query costs.
+
+## The business model: capture first, diagnosis next
+
+Softprobe describes itself as a platform for performance reviews of AI agents. Its product flow is to capture a session, inspect individual steps, find recurring behavior, and verify whether a change improved the agent. The pricing page positions Agent Diagnosis, team collaboration, and enterprise controls as paid capabilities.
+
+| Product layer | What it does | Plan role |
+|---|---|---|
+| Capture | Accept and preserve agent sessions | Free Individuals entry point |
+| Exploration | Inspect sessions, steps, model calls, and tool calls | Available on Individuals |
+| Diagnosis and collaboration | Turn evidence into findings and team action | Paid Teams and Enterprise capabilities |
+
+That separation matters. If the product charged at the moment evidence arrived, teams would have an incentive to sample or drop the very sessions they might later need. Making capture broadly available lets the product build a useful evidence history; paid features help teams interpret and act on that history.
+
+Thelake supports the storage side of that model. Softprobe’s paid layer focuses on the work that follows capture: understanding performance problems, reviewing evidence with a team, and managing the product across an organization.
+
+## Why open source thelake?
+
+Thelake is available under an open-source license, and its code and setup documentation are public. That gives builders a way to inspect the runtime and its data path, and gives teams the option to explore self-hosting. It also makes the architecture behind Softprobe’s capture story visible instead of asking readers to take a pricing claim on faith.
+
+Open source and hosted product solve different parts of the problem: thelake provides a data plane teams can inspect and run, while Softprobe packages capture and review into a managed experience.
+
+## The useful distinction
+
+“Free and unlimited” can sound like a claim about every part of a service. Here, the public offer is more precise: unlimited session ingestion on Individuals, paired with a 365-day session history. The product can remove per-session anxiety at capture time while still defining retention and reserving diagnosis and enterprise features for paid plans.
+
+That is the practical connection between Softprobe and thelake: **keep the evidence accessible, and make better agent performance the value users pay to unlock.**
+
+<FAQ items={[
+  {
+    question: "Does Softprobe's free plan include unlimited agent sessions?",
+    answer: "Softprobe's public pricing page lists unlimited session ingestion and unlimited agents for Individuals, alongside Session and Step Explorer, model and tool-call details, and 365-day session history."
+  },
+  {
+    question: "What is thelake?",
+    answer: "thelake is Softprobe's open-source runtime for authenticated OTLP ingestion, tenant-scoped DuckLake storage, DuckDB queries, and telemetry search."
+  },
+  {
+    question: "Does unlimited ingestion mean data is retained forever?",
+    answer: "No. Softprobe lists 365-day session history on Individuals. Ingestion volume and retention duration are separate parts of the plan."
+  }
+]} />
+
+---
+
+Explore [thelake](https://thelake.softprobe.ai/) and [Softprobe](https://softprobe.ai/). Read the [thelake source and architecture](https://github.com/softprobe/thelake).
