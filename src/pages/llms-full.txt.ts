@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '@/config/site';
+import { stripMdxForLlms } from '@/lib/strip-mdx-for-llms';
 
 export const GET: APIRoute = async () => {
   const posts = (await getCollection('blog'))
@@ -17,7 +18,7 @@ Generated: ${new Date().toISOString()}
 
   for (const post of posts) {
     const slug = post.id.replace(/\.(md|mdx)$/, '');
-    const url = `${SITE.url}/blog/${slug}`;
+    const url = `${SITE.url}/blog/${slug}/`;
     content += `
 ---
 Title: ${post.data.title}
@@ -29,7 +30,7 @@ Description: ${post.data.description}
 ${post.data.keyTakeaways ? `Key Takeaways:\n${post.data.keyTakeaways.map((k) => `  * ${k}`).join('\n')}\n` : ''}
 ---
 
-${post.body || ''}
+${stripMdxForLlms(post.body || '')}
 
 `;
   }

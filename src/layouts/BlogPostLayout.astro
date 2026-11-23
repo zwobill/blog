@@ -37,13 +37,13 @@ const {
   faq = [],
 } = Astro.props;
 
-const canonicalUrl = `${SITE.url}/blog/${slug}`;
+const canonicalUrl = `${SITE.url}/blog/${slug}/`;
 const rawMdUrl = `/blog/${slug}.md`;
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Articles', url: '/blog' },
-  { name: title, url: `/blog/${slug}` },
+  { name: 'Articles', url: '/blog/' },
+  { name: title, url: `/blog/${slug}/` },
 ];
 
 const formattedPubDate = pubDate.toLocaleDateString('en-US', {

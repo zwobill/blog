@@ -27,7 +27,7 @@ ${SITE.author.knowsAbout.map((area) => `- ${area}`).join('\n')}
 ${posts
   .map((post) => {
     const slug = post.id.replace(/\.(md|mdx)$/, '');
-    const url = `${SITE.url}/blog/${slug}`;
+    const url = `${SITE.url}/blog/${slug}/`;
     const rawMdUrl = `${SITE.url}/blog/${slug}.md`;
     return `### [${post.data.title}](${url})
 - Date: ${post.data.pubDate.toISOString().split('T')[0]}

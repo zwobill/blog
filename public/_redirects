@@ -4,6 +4,9 @@
 /atom.xml /rss.xml 301
 /feed.xml /rss.xml 301
 
+# Sitemap filename expected by some crawlers
+/sitemap.xml /sitemap-index.xml 301
+
 # Author short-links
 /linkedin https://linkedin.com/in/yunfeizuo 302
 /twitter https://x.com/billzwo 302
