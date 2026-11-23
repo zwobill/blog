@@ -9,7 +9,7 @@ Live site: [https://billzuo.com](https://billzuo.com)
 ## Architecture & Features
 
 - **Framework:** [Astro](https://astro.build/) (Static Pre-rendering + Cloudflare Worker edge integration)
-- **Deployment:** Cloudflare Pages / Workers Git Integration (no GitHub Actions CI/CD needed; automated builds on push to `main`)
+- **Deployment:** Cloudflare Worker `blog` on the Softprobe account, bound to `billzuo.com`. See the deploy section below.
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with `@tailwindcss/typography`
 - **Content:** Git-managed Markdown (`.md`) and MDX (`.mdx`) with type-safe Astro Content Collections
 - **Rich Media MDX Components:**
@@ -52,11 +52,24 @@ npm run preview
 
 ## Cloudflare Deployment Setup
 
-1. In the [Cloudflare Dashboard](https://dash.cloudflare.com/), go to **Workers & Pages** -> **Create application** -> **Pages** -> **Connect to Git**.
-2. Select repository: `zwobill/blog`.
-3. Set build configuration:
-   - **Framework preset:** `Astro`
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist/client`
-   - **Environment variable:** `NODE_VERSION = 22` (or automatically detected via `.node-version` / `.nvmrc`)
-4. Click **Save and Deploy**. Cloudflare's GitHub App will deploy your site on every push to `main` with zero GitHub Actions required.
+Production is a **Cloudflare Worker** named `blog` (not a Pages project) on the Softprobe account, with a custom domain on `billzuo.com`. `wrangler.jsonc` uses that same script name so deploys update the live Worker instead of creating a new one.
+
+Merges to `main` are deployed by [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) once these repository secrets exist:
+
+1. In the [Cloudflare dashboard](https://dash.cloudflare.com/), open the **Softprobe** account.
+2. Go to **Manage Account → Account API Tokens → Create Token**.
+3. Use the **Edit Cloudflare Workers** template (Workers Scripts Edit, plus Account Settings Read). Do not paste the token into chat or into this repository.
+4. In this GitHub repo, go to **Settings → Secrets and variables → Actions** and add:
+   - `CLOUDFLARE_API_TOKEN` — the token from step 3
+   - `CLOUDFLARE_ACCOUNT_ID` — the Softprobe account ID
+5. After the secrets are in place, merging a pull request to `main` builds the site and runs `wrangler deploy`. Pull requests themselves only run a build; they do not deploy.
+
+Until those secrets are set, deploy manually from a trusted machine:
+
+```bash
+npm ci
+npm run build
+npx wrangler deploy
+```
+
+The Wrangler command must target the Softprobe account and the Worker named `blog`.

@@ -1,6 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "billzuo-blog",
+  // Live Softprobe Worker bound to billzuo.com is named "blog".
+  // Keep this in sync. A different name (for example billzuo-blog) would
+  // publish a new script and miss the custom domain.
+  "name": "blog",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": [
     "nodejs_compat"

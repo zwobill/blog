@@ -20,7 +20,7 @@ pubDate: ${post.data.pubDate.toISOString()}
 author: "${post.data.author}"
 category: "${post.data.category}"
 tags: [${post.data.tags.map((t: string) => `"${t}"`).join(', ')}]
-canonicalUrl: "https://billzuo.com/blog/${slug}"
+canonicalUrl: "https://billzuo.com/blog/${slug}/"
 ---
 
 `;
